@@ -25,23 +25,39 @@ public class CustomerServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-		if (Objects.nonNull(action) && action.equals("ADD_FORM"))
-			this.getServletContext().getRequestDispatcher("/add_student.jsp").forward(request, response);
-		else
+		if (Objects.isNull(action) || action.equals("LIST"))
 			this.findAll(request, response);
+		else if(action.equals("ADD_FORM"))
+			this.getServletContext().getRequestDispatcher("/add_customer.jsp").forward(request, response);
+		else if(action.equals("UPDATE_FORM")) {
+			Long id =  Long.parseLong((request.getParameter("customerId")));
+			Customer customer = CustomerRepository.getInstance().findById(id);
+			request.setAttribute("customer", customer);
+			this.getServletContext().getRequestDispatcher("/update_customer.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// doGet(request, response);
+		
 		String action = request.getParameter("action");
-		System.out.println(action);
 		switch (action) {
 		case "ADD":
 			save(request, response);
 			break;
+			case "UPDATE": 
+				update(request, response);
 		}
 		findAll(request, response);
+	}
+
+	private void update(HttpServletRequest request, HttpServletResponse response) {
+		
+		Long id =  Long.valueOf(request.getParameter("id"));
+		String fisrtName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		Customer customer = new Customer(id, fisrtName, lastName);
+		CustomerRepository.getInstance().update(customer);
 	}
 
 	private void save(HttpServletRequest request, HttpServletResponse response) {

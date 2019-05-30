@@ -9,6 +9,13 @@
 </head>
 <body>
 	<h2>Welcome to your home page</h2>
+	<c:url var="addCustomer" value="CustomerServlet">
+		<c:param name="action" value="ADD_FORM"></c:param>
+	</c:url>
+	<c:url var="listCustomers" value="CustomerServlet">
+		<c:param name="action" value="LIST"></c:param>
+	</c:url>	
+	<a href="${addCustomer}">Add Customer</a> <a href="${listCustomers}">Display all customers</a>
 	<table>
 		<thead>
 			<tr>

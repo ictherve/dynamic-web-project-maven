@@ -34,7 +34,7 @@ private void findAll(HttpServletRequest request, HttpServletResponse response) t
 		Collection<Customer> customers = CustomerRepository.getInstance().findAll();
 		System.out.println("All cuqtomers : " + customers);
 		request.setAttribute("customers", customers);
-		this.getServletContext().getRequestDispatcher("index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 }

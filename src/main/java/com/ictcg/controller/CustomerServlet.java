@@ -34,6 +34,9 @@ public class CustomerServlet extends HttpServlet {
 			Customer customer = CustomerRepository.getInstance().findById(id);
 			request.setAttribute("customer", customer);
 			this.getServletContext().getRequestDispatcher("/update_customer.jsp").forward(request, response);
+		}else if (action.equals("DELETE")) {
+			delete(request, response);
+			findAll(request, response);
 		}
 	}
 
@@ -49,6 +52,11 @@ public class CustomerServlet extends HttpServlet {
 				update(request, response);
 		}
 		findAll(request, response);
+	}
+
+	private void delete(HttpServletRequest request, HttpServletResponse response) {
+		Long id =  Long.parseLong((request.getParameter("customerId")));
+		CustomerRepository.getInstance().delete(id);
 	}
 
 	private void update(HttpServletRequest request, HttpServletResponse response) {

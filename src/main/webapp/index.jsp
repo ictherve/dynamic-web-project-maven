@@ -33,11 +33,15 @@
 						<c:param name="action" value="UPDATE_FORM"></c:param>
 						<c:param name="customerId" value="${customer.id}"></c:param>
 					</c:url>
+					<c:url var="deleteCustomer" value="CustomerServlet">
+						<c:param name="action" value="DELETE"></c:param>
+						<c:param name="customerId" value="${customer.id}"></c:param>
+					</c:url>
 					<tr>
 						<td>${customer.id}</td>
 						<td>${customer.firstName }</td>
 						<td>${customer.lastName }</td>
-						<td><a href="${updateCustomer}">update</a></td>
+						<td><a href="${updateCustomer}">UPDATE</a>  |  <a href="${deleteCustomer}">DELETE</a></td>
 					</tr>
 				</c:forEach>
 			</c:if>
